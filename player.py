@@ -1,6 +1,6 @@
 from entity import Entity
 from animation import CreatureAnimator
-from geometry import *
+from geometry import Vector, Direction, Rectangle
 from enum import Enum
 from pyglet.window import key
 from drawing import Drawer
@@ -8,9 +8,9 @@ import pyglet
 
 
 class Player(Entity):
-    Basic_size = Vector(10, 10)
+    Basic_size = Vector(0.6, 0.6)
     Basic_max_hp = 100
-    Basic_speed = 1
+    Basic_speed = 4
     Animation_frequency = 0.3
 
     def __init__(self, pos, controller, direction=Direction.DOWN):
@@ -30,7 +30,7 @@ class Player(Entity):
         direction, actions = self.controller.get_behavior()
         self.animator.update(t, direction)
         if not direction.zero():
-            dp = (direction/abs(direction))*self.speed
+            dp = (direction/abs(direction))*self.speed*dt
             if not world.collide(self.hitbox() + dp):
                 self.pos += dp
 
@@ -40,11 +40,11 @@ class Player(Entity):
     def get_sprites(self):
         return [(self.sprite, 2)]
 
-    def draw(self, scale, offset):
-        Drawer.update_sprite(self.sprite, self.animator.get_texture(), self.pos, scale, offset)
+    def update_sprites(self, drawing_method):
+        drawing_method(self.sprite, self.animator.get_texture(), self.pos)
 
     @staticmethod
-    def get_textures(image):
+    def set_textures(image):
         imgs = pyglet.image.ImageGrid(image.get_region(x=32*6, y=32*4, width=32*3, height=32*4), 4, 3)
         for i in imgs:
             i.anchor_x = i.width // 2

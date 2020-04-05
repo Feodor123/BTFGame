@@ -21,5 +21,5 @@ class Entity:
     def get_sprites(self):
         raise NotImplementedError("Пиши код, дядя!")
 
-    def draw(self, scale, offset):
+    def update_sprites(self, drawing_method):
         raise NotImplementedError("Пиши код, дядя!")
