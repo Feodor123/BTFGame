@@ -1,3 +1,5 @@
+import geometry
+
 class Entity:
     """всё что требует регулярного обновления"""
     CurrId = 0
@@ -22,4 +24,15 @@ class Entity:
         raise NotImplementedError("Пиши код, дядя!")
 
     def update_sprites(self, drawing_method):
+        raise NotImplementedError("Пиши код, дядя!")
+
+class IObstacle:
+    def get_size(self):
+        raise NotImplementedError("Пиши код, дядя!")
+
+class IActivable:
+    def on_action(self, entity):
+        raise NotImplementedError("Пиши код, дядя!")
+
+    def get_activate_area(self):
         raise NotImplementedError("Пиши код, дядя!")

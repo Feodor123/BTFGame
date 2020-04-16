@@ -53,6 +53,24 @@ class Room:
         return candidates
 
 
+class ToiletRoom(Room):
+    def __init__(self, shape: Rectangle, floor: TileType, wall: TileType, carpet: TileType):
+        if shape.size.x % 2 == 0 or shape.size.y % 2 == 0:
+            raise AssertionError()
+        self.shape = shape
+        self.floor = floor
+        self.wall = wall
+        self.carpet = carpet
+        self.doors = []
+
+    def fill(self, field):
+        super(ToiletRoom, self).fill(field)
+        center = self.shape.pos + self.shape.size // 2;
+        for x in range(center.x - 1,center.x + 2):
+            for y in range(center.y - 1,center.y + 2):
+                field[x,y] = Tile(self.carpet, have_sprite=True, structure=self)
+
+
 class Road:
     def __init__(self, path: list, floor: TileType, wall: TileType):
         self.path = path

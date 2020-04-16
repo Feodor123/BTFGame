@@ -1,5 +1,6 @@
 from enum import Enum
 from random import randint
+import math
 
 
 class Vector:
@@ -100,8 +101,12 @@ class Rectangle:
 
     def intersect(self, other):
         """strictly"""
-        return not (other.pos.x + other.size.x <= self.pos.x or other.pos.x >= self.pos.x + self.size.x) and \
-               not (other.pos.y + other.size.y <= self.pos.y or other.pos.y >= self.pos.y + self.size.y)
+        return not (other.pos.x + other.size.x <= self.pos.x or other.pos.x >= self.pos.x + self.size.x) and not\
+            (other.pos.y + other.size.y <= self.pos.y or other.pos.y >= self.pos.y + self.size.y)
+
+    def contains_vector(self, vector):
+        """strictly"""
+        return self.x1() < vector.x < self.x2() and self.y1() < vector.y < self.y2()
 
     def distance(self, other):
         """0 if intersect"""
@@ -121,3 +126,11 @@ class Direction(Enum):
     RIGHT = Vector(1, 0)
     DOWN = Vector(0, -1)
     LEFT = Vector(-1, 0)
+
+
+Angles = {
+    Direction.UP: 0,
+    Direction.RIGHT: 90,
+    Direction.DOWN: 180,
+    Direction.LEFT: 270
+}
