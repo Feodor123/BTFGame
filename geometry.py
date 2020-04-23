@@ -101,23 +101,31 @@ class Rectangle:
 
     def intersect(self, other):
         """strictly"""
-        return not (other.pos.x + other.size.x <= self.pos.x or other.pos.x >= self.pos.x + self.size.x) and not\
-            (other.pos.y + other.size.y <= self.pos.y or other.pos.y >= self.pos.y + self.size.y)
+        return not (other.pos.x + other.size.x <= self.pos.x or
+                    other.pos.x >= self.pos.x + self.size.x) and not\
+            (other.pos.y + other.size.y <= self.pos.y or
+             other.pos.y >= self.pos.y + self.size.y)
 
     def contains_vector(self, vector):
         """strictly"""
-        return self.x1() < vector.x < self.x2() and self.y1() < vector.y < self.y2()
+        return self.x1() < vector.x < self.x2() and \
+            self.y1() < vector.y < self.y2()
 
     def distance(self, other):
         """0 if intersect"""
-        return max(self.pos.x - other.pos.x - other.size.x, other.pos.x - self.pos.x - self.size.x,
-                   self.pos.y - other.pos.y - other.size.y, other.pos.y - self.pos.y - self.size.y, 0)
+        return max(self.pos.x - other.pos.x - other.size.x,
+                   other.pos.x - self.pos.x - self.size.x,
+                   self.pos.y - other.pos.y - other.size.y,
+                   other.pos.y - self.pos.y - self.size.y, 0)
 
     @staticmethod
     def get_random(min_size, max_size, border):
-        w, h = randint(min_size.x, max_size.x), randint(min_size.y, max_size.y)
-        return Rectangle(randint(border.pos.x, border.pos.x + border.size.x - w),
-                         randint(border.pos.y, border.pos.y + border.size.y - h), w, h)
+        w, h = randint(min_size.x, max_size.x), \
+               randint(min_size.y, max_size.y)
+        return Rectangle(randint(border.pos.x,
+                                 border.pos.x + border.size.x - w),
+                         randint(border.pos.y,
+                                 border.pos.y + border.size.y - h), w, h)
 
 
 class Direction(Enum):

@@ -1,5 +1,6 @@
 import geometry
 
+
 class Entity:
     """всё что требует регулярного обновления"""
     CurrId = 0
@@ -26,9 +27,11 @@ class Entity:
     def update_sprites(self, drawing_method):
         raise NotImplementedError("Пиши код, дядя!")
 
+
 class IObstacle:
     def get_size(self):
         raise NotImplementedError("Пиши код, дядя!")
+
 
 class IActivable:
     def on_action(self, entity):

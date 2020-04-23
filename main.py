@@ -26,8 +26,10 @@ def on_draw():
     game_window.clear()
     world.draw()
     if __debug__:
-        info_label.text="x: {}, y: {}, fps: {}".format(world.focus_entity.pos.x, world.focus_entity.pos.y,
-                                                       pyglet.clock.get_fps())
+        info_label.text = "x: {}, y: {}, fps: {}".format(
+            world.focus_entity.pos.x,
+            world.focus_entity.pos.y,
+            pyglet.clock.get_fps())
         info_label.draw()
 
 

@@ -3,6 +3,7 @@ from geometry import Vector, Rectangle
 from animation import CyclicAnimator
 import pyglet
 
+
 class Fireball(Entity):
     Basic_size = Rectangle(-0.2, -0.2, 0.4, 0.4)
     Update_frequency = 0.1
@@ -14,7 +15,8 @@ class Fireball(Entity):
         self.pos = pos
         self.direction = direction
         self.size = Fireball.Basic_size
-        self.animator = CyclicAnimator(Fireball.textures, Fireball.Update_frequency, direction)
+        self.animator = CyclicAnimator(Fireball.textures,
+                                       Fireball.Update_frequency, direction)
         t, a = self.animator.get_texture()
         self.sprite = pyglet.sprite.Sprite(t)
         self.sprite.rotation = a
@@ -39,11 +41,14 @@ class Fireball(Entity):
 
     def update_sprites(self, drawing_method):
         t, a = self.animator.get_texture()
-        drawing_method(self.sprite, t, self.pos, Fireball.Texture_size, rotation=a)
+        drawing_method(self.sprite, t, self.pos,
+                       Fireball.Texture_size, rotation=a)
 
     @staticmethod
     def set_textures(image):
-        imgs = pyglet.image.ImageGrid(image.get_region(x=0, y=0, width=75 * 4, height=75 * 1), 1, 4)
+        imgs = pyglet.image.ImageGrid(image.get_region(x=0, y=0,
+                                                       width=75 * 4,
+                                                       height=75 * 1), 1, 4)
         for i in imgs:
             i.anchor_x = i.width // 2
             i.anchor_y = i.height // 2

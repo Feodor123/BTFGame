@@ -27,7 +27,11 @@ class Player(Entity):
         self.controller = controller
         self.direction = direction
         self.speed = Player.Basic_speed
-        self.animator = CreatureAnimator({p[0]: [p[1][1], p[1][0], p[1][1], p[1][2]] for p in Player.textures.items()},
+        self.animator = CreatureAnimator({p[0]: [p[1][1],
+                                                 p[1][0],
+                                                 p[1][1],
+                                                 p[1][2]]
+                                          for p in Player.textures.items()},
                                          Player.Animation_frequency)
         self.sprite = pyglet.sprite.Sprite(self.animator.get_texture())
         self.last_interact = 0
@@ -45,13 +49,14 @@ class Player(Entity):
                 self.pos += Vector(dp.x, 0)
             elif not world.collide(self.hitbox() + Vector(0, dp.y)):
                 self.pos += Vector(0, dp.y)
-        if ActionType.Interact in actions and self.last_interact + Player.Interact_cooldown < t:
+        if ActionType.Interact in actions and \
+                self.last_interact + Player.Interact_cooldown < t:
             world.action(self, self.action_area + self.pos)
             self.last_interact = t
-        if ActionType.Attack  in actions and self.last_attack + Player.Attack_cooldown < t:
+        if ActionType.Attack in actions and \
+                self.last_attack + Player.Attack_cooldown < t:
             world.add_entity(Fireball(self.pos, self.direction))
             self.last_attack = t
-
 
     def hitbox(self):
         return self.size + self.pos
@@ -64,7 +69,10 @@ class Player(Entity):
 
     @staticmethod
     def set_textures(image):
-        imgs = pyglet.image.ImageGrid(image.get_region(x=32*6, y=32*4, width=32*3, height=32*4), 4, 3)
+        imgs = pyglet.image.ImageGrid(image.get_region(x=32*6,
+                                                       y=32*4,
+                                                       width=32*3,
+                                                       height=32*4), 4, 3)
         for i in imgs:
             i.anchor_x = i.width // 2
             i.anchor_y = i.height // 2

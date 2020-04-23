@@ -13,7 +13,8 @@ class World:
     def __init__(self, controller, game_window):
         self.game_window = game_window
         self.batch = pyglet.graphics.Batch()
-        self.layers = [pyglet.graphics.OrderedGroup(i) for i in range(World.Layer_count)]
+        self.layers = [pyglet.graphics.OrderedGroup(i)
+                       for i in range(World.Layer_count)]
         self.entities = {}
         self.obstacle_entities = {}
         self.activable_entities = {}
@@ -32,9 +33,11 @@ class World:
             s.group = self.layers[i]
 
     def random_free(self, size):
-        v = Vector(randint(0, self.field_size.x - 1), randint(0, self.field_size.y - 1))
+        v = Vector(randint(0, self.field_size.x - 1),
+                   randint(0, self.field_size.y - 1))
         while self.collide(size + v) or not self.field.on_floor(v):
-            v = Vector(randint(0, self.field_size.x - 1), randint(0, self.field_size.y - 1))
+            v = Vector(randint(0, self.field_size.x - 1),
+                       randint(0, self.field_size.y - 1))
         return v
 
     def collide(self, rect: Rectangle):
@@ -60,7 +63,8 @@ class World:
 
     def draw(self):
         drawer = Drawer(Vector(32, 32) * self.scale, self.get_focus(),
-                        Vector(self.game_window.width / 2, self.game_window.height / 2))
+                        Vector(self.game_window.width / 2,
+                               self.game_window.height / 2))
         for e in self.entities.values():
             e.update_sprites(drawer.draw_texture)
         self.field.update_sprites(drawer.get_tile_drawer(self.scale))

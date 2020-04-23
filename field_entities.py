@@ -2,6 +2,7 @@ from entity import Entity, IObstacle, IActivable
 from geometry import Vector, Direction, Rectangle
 import pyglet
 
+
 class Door(Entity, IObstacle, IActivable):
     Basic_size = Rectangle(0, 0, 1, 1)
     Action_area = Rectangle(0, 0, 1, 1)
@@ -17,7 +18,8 @@ class Door(Entity, IObstacle, IActivable):
         self.opened = False
 
     def update(self, dt, t, world):
-        if self.opened and self.state < 3 and self.last_update + Door.Update_frequency < t:
+        if self.opened and self.state < 3 and \
+                self.last_update + Door.Update_frequency < t:
             self.state += 1
             self.last_update = t
 
@@ -34,7 +36,8 @@ class Door(Entity, IObstacle, IActivable):
         drawing_method(self.sprite, Door.textures[self.state], self.pos)
 
     def get_size(self):
-        return self.size + self.pos if self.state != 3 else Rectangle(0,0,0,0)
+        return self.size + self.pos if self.state != 3 else Rectangle(0, 0,
+                                                                      0, 0)
 
     def on_action(self, entity):
         self.opened = True
@@ -44,5 +47,7 @@ class Door(Entity, IObstacle, IActivable):
 
     @staticmethod
     def set_textures(image):
-        imgs = pyglet.image.ImageGrid(image.get_region(x=32 * 6, y=32 * 4, width=32 * 1, height=32 * 4), 4, 1)
+        imgs = pyglet.image.ImageGrid(image.get_region(x=32 * 6, y=32 * 4,
+                                                       width=32 * 1,
+                                                       height=32 * 4), 4, 1)
         Door.textures = imgs[::-1]
